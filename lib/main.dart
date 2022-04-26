@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/responsive/mobileScreenLayout.dart';
 import 'package:habit_tracker/responsive/responsiveLayoutScreen.dart';
 import 'package:habit_tracker/responsive/webScreenLayout.dart';
+import 'package:habit_tracker/screens/loginScreen.dart';
 import 'package:habit_tracker/util/colors.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,10 +21,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark()
           .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-      home: const ResponsiveLayout(
-        webScreenLayout: WebScreenLayout(),
-        mobileScreenLayout: MobileScreenLayout(),
-      ),
+      // home: const ResponsiveLayout(
+      //   webScreenLayout: WebScreenLayout(),
+      //   mobileScreenLayout: MobileScreenLayout(),
+      // ),
+      home: const LoginScreen(),
     );
   }
 }
