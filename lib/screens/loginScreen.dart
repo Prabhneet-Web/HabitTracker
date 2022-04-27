@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:habit_tracker/screens/signUpScreen.dart';
 import 'package:habit_tracker/util/colors.dart';
 import 'package:habit_tracker/widget/textFieldInput.dart';
 import 'package:lottie/lottie.dart';
@@ -13,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -20,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
   }
+
+  bool _isElevated = true;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +47,88 @@ class _LoginScreenState extends State<LoginScreen> {
                 textEditingController: _emailController,
                 hintText: "Enter your email",
                 labelText: "Email",
-                textInputType: TextInputType.emailAddress)
+                textInputType: TextInputType.emailAddress),
+            //Divider
+            const Opacity(opacity: 0.0, child: Divider(height: 20)),
             //TextField Input of Password
-
+            TextFieldInput(
+              textEditingController: _passwordController,
+              hintText: "Enter your password",
+              labelText: "Password",
+              textInputType: TextInputType.text,
+              isPass: true,
+            ),
+            //Divider
+            Opacity(opacity: 0.0, child: Divider(height: deviceHeight * 0.09)),
+            
             //TextButton for Login
+            GestureDetector(
+              onTap: () async {
+                setState(() {
+                  _isLoading = true;
+                  _isElevated = !_isElevated;
+                });
+                await Future.delayed(const Duration(microseconds: 400));
+                setState(() {
+                  _isLoading = false;
+                });
+              },
+              child: _isLoading
+                  ? SizedBox(
+                      height: 52,
+                      child: Lottie.asset(
+                          "lib/assets/images/LoadingForTaskApp.json"),
+                    )
+                  : AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      height: 50,
+                      width: deviceWidth * 0.5,
+                      decoration: BoxDecoration(
+                          color: iconColor,
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: _isElevated
+                              ? [
+                                  const BoxShadow(
+                                      color: iconColor,
+                                      offset: Offset(4, 4),
+                                      blurRadius: 15,
+                                      spreadRadius: 1),
+                                  const BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-4, -4),
+                                      blurRadius: 15,
+                                      spreadRadius: 1)
+                                ]
+                              : null),
+                      child: const Center(
+                          child: Text("Login", style: TextStyle(fontSize: 18))),
+                    ),
+            ),
+            //Divider
+            const Opacity(opacity: 0.0, child: Divider()),
+            //Row for SignUp
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: const Text("Don't you have an account?"),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const SignupScreen()));
+                    },
+                    child: Container(
+                      child: const Text(
+                        " Sign Up.",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ))
+              ],
+            )
           ]),
         ),
       ),

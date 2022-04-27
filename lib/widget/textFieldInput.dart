@@ -31,10 +31,10 @@ class TextFieldInput extends StatelessWidget {
         decoration: InputDecoration(
             hintText: hintText,
             labelText: labelText,
-            labelStyle: TextStyle(color: Colors.grey.shade700),
+            labelStyle: TextStyle(color: Colors.grey.shade400),
             enabledBorder: inputBorder,
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: iconColor),
+              borderSide: const BorderSide(color: iconColor),
               borderRadius: BorderRadius.circular(25.0),
             ),
             filled: true,
