@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: mobileBackgroundColor,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           width: double.infinity,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //Divider
             Opacity(opacity: 0.0, child: Divider(height: deviceHeight * 0.09)),
-            
+
             //TextButton for Login
             GestureDetector(
               onTap: () async {
@@ -74,11 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
               child: _isLoading
-                  ? SizedBox(
-                      height: 52,
-                      child: Lottie.asset(
-                          "lib/assets/images/LoadingForTaskApp.json"),
-                    )
+                  ? Container(
+                      height: MediaQuery.of(context).size.height * 0.059)
                   : AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       height: 50,
@@ -107,28 +104,32 @@ class _LoginScreenState extends State<LoginScreen> {
             //Divider
             const Opacity(opacity: 0.0, child: Divider()),
             //Row for SignUp
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: const Text("Don't you have an account?"),
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const SignupScreen()));
-                    },
-                    child: Container(
-                      child: const Text(
-                        " Sign Up.",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+            _isLoading
+                ? SizedBox(
+                    height: 52,
+                    child: Lottie.asset(
+                        "lib/assets/images/LoadingForTaskApp.json"),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: const Text("Don't you have an account?"),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                       ),
-                    ))
-              ],
-            )
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const SignupScreen()));
+                          },
+                          child: const Text(
+                            " Sign Up.",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ))
+                    ],
+                  )
           ]),
         ),
       ),
