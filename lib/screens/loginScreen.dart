@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:habit_tracker/resources/authmethod.dart';
+import 'package:habit_tracker/screens/firstScreen.dart';
 import 'package:habit_tracker/screens/signUpScreen.dart';
 import 'package:habit_tracker/util/colors.dart';
+import 'package:habit_tracker/util/snackBar.dart';
 import 'package:habit_tracker/widget/textFieldInput.dart';
 import 'package:lottie/lottie.dart';
 
@@ -25,6 +28,26 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _isElevated = true;
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+      _isElevated = !_isElevated;
+    });
+    await Future.delayed(const Duration(microseconds: 400));
+
+    String result = await AuthMethods().loginUser(
+        email: _emailController.text, password: _passwordController.text);
+    if (result == "success") {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+    } else {
+      showSnackBar(result, context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +87,10 @@ class _LoginScreenState extends State<LoginScreen> {
             //TextButton for Login
             GestureDetector(
               onTap: () async {
-                setState(() {
-                  _isLoading = true;
-                  _isElevated = !_isElevated;
-                });
-                await Future.delayed(const Duration(microseconds: 400));
-                setState(() {
-                  _isLoading = false;
-                });
+                loginUser();
               },
               child: _isLoading
-                  ? Container(
-                      height: MediaQuery.of(context).size.height * 0.059)
+                  ? Container(height: MediaQuery.of(context).size.height * 0.1)
                   : AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       height: 50,
@@ -106,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //Row for SignUp
             _isLoading
                 ? SizedBox(
-                    height: 52,
+                    height: MediaQuery.of(context).size.height * 0.08,
                     child: Lottie.asset(
                         "lib/assets/images/LoadingForTaskApp.json"),
                   )

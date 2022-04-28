@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/responsive/mobileScreenLayout.dart';
 import 'package:habit_tracker/responsive/responsiveLayoutScreen.dart';
 import 'package:habit_tracker/responsive/webScreenLayout.dart';
+import 'package:habit_tracker/screens/firstScreen.dart';
 import 'package:habit_tracker/screens/loginScreen.dart';
 import 'package:habit_tracker/util/colors.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       //   webScreenLayout: WebScreenLayout(),
       //   mobileScreenLayout: MobileScreenLayout(),
       // ),
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

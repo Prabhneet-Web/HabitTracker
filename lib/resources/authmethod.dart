@@ -47,4 +47,31 @@ class AuthMethods {
     }
     return result;
   }
+
+  //LoggingIn User
+  Future<String> loginUser(
+      {required String email, required String password}) async {
+    String result = "Some error occured";
+
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        result = "success";
+      } else {
+        result = "Please enter all the fields";
+      }
+    } on FirebaseAuthException catch (error) {
+      if (error.code == "user-not-found") {
+        result = "User not found";
+      } else if (error.code == "wrong-password") {
+        result = "Wrong Password";
+      } else {
+        result = "Try Again";
+      }
+    } catch (error) {
+      result = error.toString();
+    }
+    return result;
+  }
 }

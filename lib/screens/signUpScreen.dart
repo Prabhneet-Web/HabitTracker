@@ -168,7 +168,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Center(
                 child: _isLoading
                     ? SizedBox(
-                        height: 48,
+                        height: MediaQuery.of(context).size.height * 0.08,
                         child: Lottie.asset(
                             "lib/assets/images/LoadingForTaskApp.json"),
                       )
