@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/resources/authmethod.dart';
-import 'package:habit_tracker/screens/loginScreen.dart';
+import 'package:habit_tracker/screens/loginScreenFirst.dart';
 import 'package:habit_tracker/util/colors.dart';
 import 'package:habit_tracker/widget/textFieldInput.dart';
 import 'package:lottie/lottie.dart';

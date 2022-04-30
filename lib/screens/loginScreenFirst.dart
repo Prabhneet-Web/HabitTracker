@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:habit_tracker/resources/authmethod.dart';
-import 'package:habit_tracker/screens/firstScreen.dart';
-import 'package:habit_tracker/screens/signUpScreen.dart';
+import 'package:habit_tracker/screens/signUpScreenSecond.dart';
+import 'package:habit_tracker/screens/taskScreenThird.dart';
 import 'package:habit_tracker/util/colors.dart';
 import 'package:habit_tracker/util/snackBar.dart';
 import 'package:habit_tracker/widget/textFieldInput.dart';
@@ -40,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text, password: _passwordController.text);
     if (result == "success") {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          context, MaterialPageRoute(builder: (_) => const HomePage()));
     } else {
       showSnackBar(result, context);
     }
