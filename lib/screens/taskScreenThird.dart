@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
       appBar: appBar,
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
         child: Column(
           children: [
             //TaskUpperCard
@@ -61,10 +61,29 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey,
             ),
 
+            //Opacity
+            const Opacity(opacity: 0.0, child: Divider()),
+
             //TaskMiddleCard
-            
+            Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.09,
+              color: Colors.brown,
+            ),
+
+            //Opacity
+            const Opacity(opacity: 0.0, child: Divider()),
 
             //TaskLowerCard
+            Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.56,
+              color: Colors.blue,
+            )
           ],
         ),
       )),
