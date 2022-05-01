@@ -18,19 +18,8 @@ class TasksList extends StatelessWidget {
     return tasks.isEmpty
         ? LayoutBuilder(builder: (ctx, constraints) {
             return Container(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                const Text(
-                  "Your Habits",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                Lottie.asset(
-                  "lib/assets/images/Checklist.json",
-                ),
-              ],
+                child: Lottie.asset(
+              "lib/assets/images/Checklist.json",
             ));
           })
         : ListView.builder(
@@ -38,8 +27,7 @@ class TasksList extends StatelessWidget {
             itemBuilder: (context, index) {
               return Card(
                   color: mobileBackgroundColor,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
                   elevation: 10,
                   child: ListTile(
                       leading: const CircleAvatar(
@@ -49,23 +37,19 @@ class TasksList extends StatelessWidget {
                           child: FittedBox(child: Text("@50")),
                         ),
                       ),
-                      title: Text(
-                        tasks[index].title,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 21),
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Text(
+                          tasks[index].title,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
                       ),
                       subtitle: Text("5 from 7 this week"),
-                      trailing: MediaQuery.of(context).size.width > 360
-                          ? TextButton.icon(
-                              style: TextButton.styleFrom(
-                                  primary: (Theme.of(context).errorColor)),
-                              onPressed: () => deleteTasks(tasks[index].id),
-                              icon: const Icon(Icons.delete),
-                              label: const Text("Delete"))
-                          : IconButton(
-                              icon: const Icon(Icons.delete),
-                              color: Theme.of(context).errorColor,
-                              onPressed: () => deleteTasks(tasks[index].id))));
+                      trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
+                          onPressed: () => deleteTasks(tasks[index].id))));
             });
   }
 }

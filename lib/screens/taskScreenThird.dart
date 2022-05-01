@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/providers/userProvider.dart';
 import 'package:habit_tracker/util/colors.dart';
+import 'package:habit_tracker/widget/taskUpperCard.dart';
 import 'package:provider/provider.dart';
 
 import '../widget/taskLowerCard.dart';
@@ -57,51 +58,93 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
-          child: Padding(
+          child: Consumer<UserProvider>(builder: (context, value, child) {
+        return Column(
+          children: [
+            //TaskUpperCard
+            Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
-              child: Consumer<UserProvider>(builder: (context, value, child) {
-                return Column(
-                  children: [
-                    //TaskUpperCard
-                    Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.19,
-                      color: Colors.grey,
-                    ),
+              child: Container(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.19,
+                // color: Colors.grey,
+                child: UpperTaskList(upperCardTasks: value.userTasks),
+              ),
+            ),
 
-                    //Opacity
-                    const Opacity(opacity: 0.0, child: Divider()),
+            //Opacity
+            const Opacity(opacity: 0.0, child: Divider()),
 
-                    //TaskMiddleCard
-                    Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.09,
-                      color: Colors.brown,
-                    ),
+            //TaskMiddleCard
+            Padding(
+              padding: const EdgeInsets.only(left: 50.0),
+              child: Container(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.1,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20)),
+                    color: Color.fromARGB(255, 38, 50, 66)),
+                // color: Colors.brown,
+              ),
+            ),
 
-                    //Opacity
-                    const Opacity(opacity: 0.0, child: Divider()),
+            //Opacity
+            Opacity(
+                opacity: 0.0,
+                child: Divider(
+                  height: (mediaQuery.size.height -
+                          appBar.preferredSize.height -
+                          mediaQuery.padding.top) *
+                      0.05,
+                )),
 
-                    //TaskLowerCard
-                    Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.56,
-                      // color: Colors.blue,
-                      child: TasksList(
-                        tasks: value.userTasks,
-                        deleteTasks: value.deleteTransaction,
-                      ),
-                    )
-                  ],
-                );
-              }))),
+            //Text
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 12.0),
+                  child: Text(
+                    "Your Habits",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+            //Opacity
+            Opacity(
+                opacity: 0.0,
+                child: Divider(
+                  height: (mediaQuery.size.height -
+                          appBar.preferredSize.height -
+                          mediaQuery.padding.top) *
+                      0.04,
+                )),
+            //TaskLowerCard
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Container(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.43,
+                child: TasksList(
+                  tasks: value.userTasks,
+                  deleteTasks: value.deleteTransaction,
+                ),
+              ),
+            )
+          ],
+        );
+      })),
     );
   }
 }
