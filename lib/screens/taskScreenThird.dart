@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/providers/userProvider.dart';
 import 'package:habit_tracker/util/colors.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,26 +21,31 @@ class _HomePageState extends State<HomePage> {
     elevation: 0.0,
     actions: [
       Padding(
-        padding: const EdgeInsets.only(right: 10.0),
-        child: GestureDetector(
-          onTap: () {},
-          child: Stack(
-            alignment: Alignment.center,
-            children: const [
-              Icon(
-                Icons.circle,
-                color: iconColor,
-                size: 37,
-              ),
-              Icon(
-                Icons.add,
-                color: primaryColor,
-                size: 23,
-              )
-            ],
-          ),
-        ),
-      )
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Consumer<UserProvider>(
+            builder: (context, value, child) {
+              return GestureDetector(
+                onTap: () {
+                  value.startAddNewTask(context);
+                },
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: const [
+                    Icon(
+                      Icons.circle,
+                      color: iconColor,
+                      size: 37,
+                    ),
+                    Icon(
+                      Icons.add,
+                      color: primaryColor,
+                      size: 23,
+                    )
+                  ],
+                ),
+              );
+            },
+          ))
     ],
   );
 

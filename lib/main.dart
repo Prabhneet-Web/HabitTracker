@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/providers/userProvider.dart';
 import 'package:habit_tracker/responsive/mobileScreenLayout.dart';
 import 'package:habit_tracker/responsive/responsiveLayoutScreen.dart';
 import 'package:habit_tracker/responsive/webScreenLayout.dart';
 import 'package:habit_tracker/screens/taskScreenThird.dart';
 import 'package:habit_tracker/screens/loginScreenFirst.dart';
 import 'package:habit_tracker/util/colors.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
       //   webScreenLayout: WebScreenLayout(),
       //   mobileScreenLayout: MobileScreenLayout(),
       // ),
-      home: const HomePage(),
+      home: ChangeNotifierProvider<UserProvider>(
+          create: (context) => UserProvider(), child: const HomePage()),
     );
   }
 }
