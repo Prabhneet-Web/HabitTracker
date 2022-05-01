@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/providers/userProvider.dart';
 import 'package:habit_tracker/util/colors.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
+import '../widget/taskLowerCard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,12 +35,12 @@ class _HomePageState extends State<HomePage> {
                     Icon(
                       Icons.circle,
                       color: iconColor,
-                      size: 37,
+                      size: 40,
                     ),
                     Icon(
                       Icons.add,
                       color: primaryColor,
-                      size: 23,
+                      size: 22,
                     )
                   ],
                 ),
@@ -57,44 +58,50 @@ class _HomePageState extends State<HomePage> {
       appBar: appBar,
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
-        child: Column(
-          children: [
-            //TaskUpperCard
-            Container(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.19,
-              color: Colors.grey,
-            ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
+              child: Consumer<UserProvider>(builder: (context, value, child) {
+                return Column(
+                  children: [
+                    //TaskUpperCard
+                    Container(
+                      height: (mediaQuery.size.height -
+                              appBar.preferredSize.height -
+                              mediaQuery.padding.top) *
+                          0.19,
+                      color: Colors.grey,
+                    ),
 
-            //Opacity
-            const Opacity(opacity: 0.0, child: Divider()),
+                    //Opacity
+                    const Opacity(opacity: 0.0, child: Divider()),
 
-            //TaskMiddleCard
-            Container(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.09,
-              color: Colors.brown,
-            ),
+                    //TaskMiddleCard
+                    Container(
+                      height: (mediaQuery.size.height -
+                              appBar.preferredSize.height -
+                              mediaQuery.padding.top) *
+                          0.09,
+                      color: Colors.brown,
+                    ),
 
-            //Opacity
-            const Opacity(opacity: 0.0, child: Divider()),
+                    //Opacity
+                    const Opacity(opacity: 0.0, child: Divider()),
 
-            //TaskLowerCard
-            Container(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.56,
-              color: Colors.blue,
-            )
-          ],
-        ),
-      )),
+                    //TaskLowerCard
+                    Container(
+                      height: (mediaQuery.size.height -
+                              appBar.preferredSize.height -
+                              mediaQuery.padding.top) *
+                          0.56,
+                      // color: Colors.blue,
+                      child: TasksList(
+                        tasks: value.userTasks,
+                        deleteTasks: value.deleteTransaction,
+                      ),
+                    )
+                  ],
+                );
+              }))),
     );
   }
 }

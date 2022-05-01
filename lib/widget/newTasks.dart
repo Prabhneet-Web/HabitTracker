@@ -116,6 +116,5 @@ class _NewTasksState extends State<NewTasks> {
         ),
       ),
     );
-    ;
   }
 }
