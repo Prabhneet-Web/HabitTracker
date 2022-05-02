@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/util/colors.dart';
 import 'package:intl/intl.dart';
 
 class MiddleDateList extends StatelessWidget {
@@ -15,9 +16,15 @@ class MiddleDateList extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width * 0.2,
               child: Card(
-                margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                color: mobileBackgroundColor,
+                margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                 elevation: 3,
-                child: ListTile(title: Text(DateFormat.MMMMd().format(DateTime.now()))),
+                child: ListTile(
+                    title: Text(
+                  DateFormat.MMMMd()
+                      .format(DateTime.now().add(Duration(days: index))),
+                  textAlign: TextAlign.center,
+                )),
               ),
             ),
           );

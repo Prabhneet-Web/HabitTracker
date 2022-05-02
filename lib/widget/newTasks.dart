@@ -16,12 +16,12 @@ class NewTasks extends StatefulWidget {
 
 class _NewTasksState extends State<NewTasks> {
   final TextEditingController _titleController = TextEditingController();
-  DateTime _selectedDate = DateTime(00, 00, 0000);
+  DateTime selectedDate = DateTime(00, 00, 0000);
 
   void _submitData() {
     final enteredTitle = _titleController.text;
-    if (enteredTitle.isEmpty || _selectedDate == DateTime(00, 00, 0000)) return;
-    widget.addTk(enteredTitle, _selectedDate);
+    if (enteredTitle.isEmpty || selectedDate == DateTime(00, 00, 0000)) return;
+    widget.addTk(enteredTitle, selectedDate);
     Navigator.of(context).pop();
   }
 
@@ -29,12 +29,12 @@ class _NewTasksState extends State<NewTasks> {
     showDatePicker(
             context: context,
             initialDate: DateTime.now(),
-            firstDate: DateTime(2022),
-            lastDate: DateTime.now())
+            firstDate: DateTime.now(),
+            lastDate: DateTime.now().add(Duration(days: 6)))
         .then((pickedDate) {
       if (pickedDate == null) return;
       setState(() {
-        _selectedDate = pickedDate;
+        selectedDate = pickedDate;
       });
     }); //Then allows us to provide a function which is executed once the future resolves to a value
   }
@@ -87,9 +87,9 @@ class _NewTasksState extends State<NewTasks> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(_selectedDate == DateTime(00, 00, 000)
+                      Text(selectedDate == DateTime(00, 00, 000)
                           ? "No Date Chosen!"
-                          : "Picked Date:- ${DateFormat.yMd().format(_selectedDate)}"),
+                          : "Picked Date:- ${DateFormat.yMd().format(selectedDate)}"),
                       const SizedBox(width: 10),
                       TextButton(
                         child: const Text(
