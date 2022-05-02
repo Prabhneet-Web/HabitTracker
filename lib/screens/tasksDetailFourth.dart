@@ -15,6 +15,10 @@ class TasksDetailPage extends StatefulWidget {
 class _TasksDetailPageState extends State<TasksDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        actions: [],
+      ),
+    );
   }
 }
