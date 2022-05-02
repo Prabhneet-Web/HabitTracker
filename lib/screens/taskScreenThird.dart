@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/providers/userProvider.dart';
 import 'package:habit_tracker/util/colors.dart';
+import 'package:habit_tracker/widget/taskMiddleDateCard.dart';
 import 'package:habit_tracker/widget/taskUpperCard.dart';
 import 'package:provider/provider.dart';
 
@@ -85,12 +86,16 @@ class _HomePageState extends State<HomePage> {
                 height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
                         mediaQuery.padding.top) *
-                    0.1,
+                    0.115,
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20)),
                     color: Color.fromARGB(255, 38, 50, 66)),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: MiddleDateList(),
+                ),
                 // color: Colors.brown,
               ),
             ),
