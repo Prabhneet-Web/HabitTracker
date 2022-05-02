@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/screens/tasksDetailFourth.dart';
 
 import '../models/tasks.dart';
 
@@ -33,43 +34,53 @@ class UpperTaskList extends StatelessWidget {
                   final randomColor =
                       Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
                           .withOpacity(1.0);
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 9.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Card(
-                        shadowColor: randomColor,
-                        elevation: 15,
-                        color: randomColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(top: 10),
-                              child: ListTile(
-                                  title: Text(
-                                upperTask,
-                                style: const TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.start,
-                              )),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: ListTile(
-                                  title: Text(
-                                upperCardTasks[index].title,
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.start,
-                              )),
-                            ),
-                          ],
+                  return GestureDetector(
+                    onTap: () async {
+                      await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => TasksDetailPage(
+                            taskId: upperCardTasks[index].id),
+                      ));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 9.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Card(
+                          shadowColor: randomColor,
+                          elevation: 15,
+                          color: randomColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.only(top: 10),
+                                child: ListTile(
+                                    title: Text(
+                                  upperTask,
+                                  style: const TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.start,
+                                )),
+                              ),
+                              Container(
+                                alignment: Alignment.bottomLeft,
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: ListTile(
+                                    title: Text(
+                                  upperCardTasks[index].title,
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.start,
+                                )),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
