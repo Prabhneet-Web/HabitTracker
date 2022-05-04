@@ -9,6 +9,10 @@ class UserProvider with ChangeNotifier {
   final List<Tasks> userTasks = [];
   int id = 0;
 
+  List<Tasks> get fetchUserTasks {
+    return [...userTasks.where((element) => !element.isArchived).toList()];
+  }
+
   void addNewTasks(String tkTitle, DateTime chosenDate) {
     final newTk = Tasks(
         id: DateTime.now().toIso8601String(), title: tkTitle, date: chosenDate);
@@ -23,17 +27,20 @@ class UserProvider with ChangeNotifier {
         builder: (_) {
           return GestureDetector(
             onTap: () {},
-            child: NewTasks(addTk: addNewTasks),
+            child: NewTasks(addTk: addNewTasks, isArchived: false),
             behavior: HitTestBehavior.opaque,
           );
         });
   }
 
-
-
-
   void deleteTransaction(String id) {
     userTasks.removeWhere((tx) => tx.id == id);
+    notifyListeners();
+  }
+
+  void toggleArchive(String id) {
+    int index = userTasks.indexWhere((element) => element.id == id);
+    userTasks[index].toggleArchive();
     notifyListeners();
   }
 }

@@ -38,7 +38,7 @@ class UpperTaskList extends StatelessWidget {
                     onTap: () async {
                       await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => TasksDetailPage(
-                            taskId: upperCardTasks[index].id),
+                            taskTitle: upperCardTasks[index].title),
                       ));
                     },
                     child: Padding(

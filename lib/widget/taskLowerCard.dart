@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 
 import 'package:habit_tracker/models/tasks.dart';
+import 'package:habit_tracker/providers/userProvider.dart';
 import 'package:habit_tracker/util/colors.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
-class TasksList extends StatelessWidget {
-  final List<Tasks> tasks;
+class TasksList extends StatefulWidget {
   final Function deleteTasks;
   const TasksList({
     Key? key,
-    required this.tasks,
     required this.deleteTasks,
   }) : super(key: key);
 
   @override
+  State<TasksList> createState() => _TasksListState();
+}
+
+class _TasksListState extends State<TasksList> {
+  bool value = false;
+  @override
   Widget build(BuildContext context) {
+    final List<Tasks> tasks = Provider.of<UserProvider>(context).fetchUserTasks;
+
     return tasks.isEmpty
         ? LayoutBuilder(builder: (ctx, constraints) {
             return Container(
@@ -30,11 +38,39 @@ class TasksList extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(vertical: 4),
                   elevation: 10,
                   child: ListTile(
-                      leading: const CircleAvatar(
+                      leading: CircleAvatar(
                         radius: 30,
                         child: Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: FittedBox(child: Text("@50")),
+                          padding: const EdgeInsets.all(6.0),
+                          child: FittedBox(
+                              // child: GestureDetector(
+                              //     onTap: () {
+                              //       Provider.of<UserProvider>(context,
+                              //               listen: false)
+                              //           .toggleArchive(tasks[index].id);
+                              //     },
+                              child: Checkbox(
+                            value: this.value,
+                            activeColor: Colors.grey,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                this.value = value!;
+                                Future.delayed(
+                                    const Duration(milliseconds: 450), () {
+                                  if (value == true) {
+                                    Provider.of<UserProvider>(context,
+                                            listen: false)
+                                        .toggleArchive(tasks[index].id);
+                                  }
+                                  setState(() {
+                                    this.value = !value;
+                                  });
+                                });
+                              });
+                            },
+                          )
+                              // )
+                              ),
                         ),
                       ),
                       title: Padding(
@@ -49,7 +85,8 @@ class TasksList extends StatelessWidget {
                       trailing: IconButton(
                           icon: const Icon(Icons.delete),
                           color: Theme.of(context).errorColor,
-                          onPressed: () => deleteTasks(tasks[index].id))));
+                          onPressed: () =>
+                              widget.deleteTasks(tasks[index].id))));
             });
   }
 }

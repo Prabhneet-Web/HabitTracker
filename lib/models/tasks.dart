@@ -11,12 +11,18 @@ class Tasks {
   final String id;
   final String title;
   final DateTime date;
-  Tasks({required this.id, required this.title, required this.date});
+  bool isArchived;
+  Tasks(
+      {required this.id,
+      required this.title,
+      required this.date,
+      this.isArchived = false});
 
-  Tasks.withId({required this.id, required this.title, required this.date});
-
-  Tasks copy({String? id, String? title, DateTime? date}) => Tasks(
-      id: id ?? this.id, title: title ?? this.title, date: date ?? this.date);
+  Tasks.withId(
+      {required this.id,
+      required this.title,
+      required this.date,
+      this.isArchived = false});
 
   //Now, let's create a function that will turn our data into Map
   //Make sure that the key used here have the same name as the table column
@@ -34,5 +40,9 @@ class Tasks {
         id: json[TasksFields.colId] as String,
         title: json[TasksFields.colTitle] as String,
         date: DateTime.parse(json[TasksFields.colDate] as String));
+  }
+
+  void toggleArchive() {
+    isArchived = !isArchived;
   }
 }

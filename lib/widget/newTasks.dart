@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/util/colors.dart';
 import 'package:intl/intl.dart';
+
+import 'package:habit_tracker/util/colors.dart';
 
 class NewTasks extends StatefulWidget {
   const NewTasks({
     Key? key,
     required this.addTk,
+    this.isArchived = false,
   }) : super(key: key);
 
   final Function addTk;
+  final bool isArchived;
 
   @override
   State<NewTasks> createState() => _NewTasksState();

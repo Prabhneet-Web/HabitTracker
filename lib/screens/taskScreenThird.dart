@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
                         appBar.preferredSize.height -
                         mediaQuery.padding.top) *
                     0.19,
-                // color: Colors.grey,
                 child: UpperTaskList(upperCardTasks: value.userTasks),
               ),
             ),
@@ -96,7 +95,6 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(left: 8.0),
                   child: MiddleDateList(),
                 ),
-                // color: Colors.brown,
               ),
             ),
 
@@ -136,13 +134,12 @@ class _HomePageState extends State<HomePage> {
             //TaskLowerCard
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
+              child: SizedBox(
                 height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
                         mediaQuery.padding.top) *
                     0.43,
                 child: TasksList(
-                  tasks: value.userTasks,
                   deleteTasks: value.deleteTransaction,
                 ),
               ),
