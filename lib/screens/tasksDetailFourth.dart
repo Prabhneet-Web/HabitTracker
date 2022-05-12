@@ -28,7 +28,7 @@ class TasksDetailPage extends StatelessWidget {
             child: Container(),
             flex: 1,
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Image.asset(
               "lib/assets/images/chart.png",

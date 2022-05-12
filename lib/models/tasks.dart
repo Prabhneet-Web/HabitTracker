@@ -11,18 +11,18 @@ class Tasks {
   final String id;
   final String title;
   final DateTime date;
-  bool isArchived;
+  Map<DateTime, bool> archivedMap;
   Tasks(
       {required this.id,
       required this.title,
       required this.date,
-      this.isArchived = false});
+      required this.archivedMap});
 
   Tasks.withId(
       {required this.id,
       required this.title,
       required this.date,
-      this.isArchived = false});
+      required this.archivedMap});
 
   //Now, let's create a function that will turn our data into Map
   //Make sure that the key used here have the same name as the table column
@@ -39,10 +39,12 @@ class Tasks {
     return Tasks.withId(
         id: json[TasksFields.colId] as String,
         title: json[TasksFields.colTitle] as String,
-        date: DateTime.parse(json[TasksFields.colDate] as String));
+        date: DateTime.parse(json[TasksFields.colDate] as String),
+        archivedMap: {});
   }
 
   void toggleArchive() {
-    isArchived = !isArchived;
+    var currentDate = DateTime.now();
+    archivedMap[currentDate] = archivedMap[currentDate]!;
   }
 }

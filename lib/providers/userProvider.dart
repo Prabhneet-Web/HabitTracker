@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/util/colors.dart';
 
@@ -10,12 +9,25 @@ class UserProvider with ChangeNotifier {
   int id = 0;
 
   List<Tasks> get fetchUserTasks {
-    return [...userTasks.where((element) => !element.isArchived).toList()];
+    var currentDate = DateTime.now();
+    return [
+      ...userTasks
+          .where((element) => !element.archivedMap[currentDate]!)
+          .toList()
+    ];
   }
 
   void addNewTasks(String tkTitle, DateTime chosenDate) {
+    Map<DateTime, bool> tempMap = {};
+    var currentDateTime = DateTime.now();
+    for (int i = 0; i < 7; i++) {
+      tempMap[currentDateTime.add(Duration(days: i))] = false;
+    }
     final newTk = Tasks(
-        id: DateTime.now().toIso8601String(), title: tkTitle, date: chosenDate);
+        id: DateTime.now().toIso8601String(),
+        title: tkTitle,
+        date: chosenDate,
+        archivedMap: tempMap);
     userTasks.add(newTk);
     notifyListeners();
   }
@@ -27,7 +39,7 @@ class UserProvider with ChangeNotifier {
         builder: (_) {
           return GestureDetector(
             onTap: () {},
-            child: NewTasks(addTk: addNewTasks, isArchived: false),
+            child: NewTasks(addTk: addNewTasks),
             behavior: HitTestBehavior.opaque,
           );
         });
